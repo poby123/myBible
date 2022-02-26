@@ -1,0 +1,51 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0;
+}
+
+button{
+    border: 0;
+    background: none;
+    margin: 0;
+    display: inline-block;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+/* section-bible-select */
+.section-bible-select{
+    height: 100vh;
+    border: 1px solid red;
+}
+
+
+
+/*  */
+.section-bible-select .container{
+    border: 1px solid blue;
+    width: 90vw;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+
+    text-align: center;
+    overflow-y: scroll;
+}
+
+.section-bible-select .container .bible-button{
+    border: 1px solid green;
+    width: 40vw;
+    height: 40vw;
+    margin-top: 2vw;
+    margin-bottom: 2vw;
+    margin-right: auto;
+    margin-left: auto;
+
+    font-size: 30px;
+}
