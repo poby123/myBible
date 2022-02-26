@@ -69,27 +69,25 @@ const bibles = {
 };
 const selectSection = $('.container-bible-select');
 const contentSection = $('.container-bible-content');
+const currentChapter = $('#current-chapter');
+const backButton = $('#back-button');
 
-const onChapterClick = e => {
-  console.log('clicked');
-};
+$('.bible-book-button').click(e => {
+  contentSection.css('z-index', '20');
+  renderContent(e.currentTarget.innerText);
+  backButton.toggleClass('hidden');
+});
 
-const renderSelector = () => {
-  for (const k in bibles) {
-    const node = $(`<button class="bible-book-button">${k}</button>`);
-    selectSection.append(node);
-  }
-  $('.bible-book-button').click(e => {
-    const selectedBible = e.currentTarget.innerText;
-    selectSection.html('');
-    selectSection.css('display', 'none');
-    renderContent(selectedBible);
-    contentSection.css('display', 'flex');
-  });
-};
+backButton.click(()=>{
+  backButton.toggleClass('hidden');
+  contentSection.css('z-index', '0');
+  currentChapter.html('');
+})
 
 const renderContent = name => {
   const { no, chap } = bibles[name];
+
+  contentSection.html(`<h2 id="current-chapter">* ${name}</h2>`);
 
   [...Array(chap).keys()].forEach(i => {
     const id = `${host}/${no}/${no}_${i + 1}.mp3`;
@@ -98,16 +96,7 @@ const renderContent = name => {
   });
 
   $('.bible-chapter-button').click(e => {
-    console.log(e);
-    contentSection.html('');
-    contentSection.css('display', 'none');
-    renderSelector();
-    selectSection.css('display', 'flex');
+    console.log(e.currentTarget.id);
   });
-  //   contentSection.css('visibility', 'visible');
-  // contentSection.css('min-height', '80vh');
-
-  console.log($('.bible-chapter-button'));
 };
 
-renderSelector();
