@@ -40,14 +40,13 @@ header .container{
     /* border: 1px solid pink; */
 }
 
-/* section-bible-select */
-.section-bible-select{
+.sectionA{
     height: 80vh;
-    border: 1px solid red;
-    /* display: none; */
+    border: 1px solid red;    
 }
 
-.section-bible-select .container{
+/* section-bible-select */
+.container-bible-select{
     border: 1px solid blue;
     width: 90vw;
     height: 100%;
@@ -59,7 +58,7 @@ header .container{
     overflow-y: scroll;
 }
 
-.section-bible-select .container .bible-book-button{
+.container-bible-select .bible-book-button{
     border: 1px solid green;
     width: 40vw;
     height: 40vw;
@@ -72,13 +71,13 @@ header .container{
 }
 
 /* section-bible-content */
-.section-bible-content{
-    height: 80vh;
+/* .section-bible-content{
     border: 1px solid red;
-    display: none;
-}
+    height: 80vh;
+    visibility: hidden;
+} */
 
-.section-bible-content .container{
+.container-bible-content{
     border: 1px solid blue;
     width: 80vw;
     height: 100%;
@@ -90,7 +89,7 @@ header .container{
     flex-direction: column;
 }
 
-.section-bible-content .container .bible-chapter-button{
+.container-bible-content .bible-chapter-button{
     border: 1px solid black;
     min-height: 10vh;
 }
