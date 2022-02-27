@@ -13,14 +13,12 @@
     <header>
         <div class="container">
             <button id="back-button" class="hidden"><i class="fa-solid fa-arrow-left"></i></button>
-            <!-- <label id="book-icon"><i class="fa-solid fa-book"></i></label> -->
             <h1>온라인 성경</h1>
         </div>
     </header>
 
-    <section class="sectionA">
-        <!-- bible select section -->
-        <div class="container-bible-select">
+    <article class="sectionA">
+        <section class="container-bible-select">
             <button class="bible-book-button bc">창세기</button>
             <button class="bible-book-button bc">출애굽기</button>
             <button class="bible-book-button bc">레위기</button>
@@ -88,24 +86,20 @@
             <button class="bible-book-button ad">요한3서</button>
             <button class="bible-book-button ad">유다서</button>
             <button class="bible-book-button ad">요한계시록</button>
-        </div>
-        <!-- bible content section -->
-        <div class="container-bible-content hidden">
-        </div>
-    </section>
-
-    <!-- audio player section -->
-    <section class="section-audio-player">
+        </section>
+        <section class="container-bible-content hidden">
+        </section>
+    </article>
+    <article class="section-audio-player">
         <div class="container" id="audio-player">
             <audio id="bible-audio" src="./에필로그.mp3" preload="metadata" controls></audio>
+            <!-- <audio src="http://210.217.24.54:88/mp3_bible/korean/1/1_1.mp3" preload="metadata" controls></audio> -->
         </div>
-    </section>
+    </article>
 
-    <!-- <audio src="http://210.217.24.54:88/mp3_bible/korean/1/1_1.mp3" preload="metadata" controls></audio> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/b4ada824cf.js" crossorigin="anonymous"></script>
     <script src="index.js"></script>
-    <!-- <script src="../common/js/jquery/lib/js/jquery-1.11.1.min.js"></script> -->
 </body>
 
 </html>

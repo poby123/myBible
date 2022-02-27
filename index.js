@@ -90,7 +90,7 @@ const renderContent = name => {
 
   contentSection.html(`
     <h2 id="current-chapter">${name}</h2>
-    <label id="decoration"><i class="fa-solid fa-an"></i></label>
+    <button id="decoration"><i class="fas fa-ellipsis-h"></i></button>
   `);
 
   [...Array(chap).keys()].forEach(i => {

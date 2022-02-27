@@ -44,7 +44,6 @@ header{
     min-height: 10vh;
     box-shadow: 0px 2px 5px gray;
     z-index: 200;
-    /* border-bottom: 1px solid red; */
     padding: 0;
     margin: 0;
     display: flex;
@@ -58,13 +57,6 @@ header .container{
     margin-right: auto;
     
     display: flex;
-    /* border: 1px solid pink; */
-}
-
-header .container #book-icon{
-    font-size: 25px;
-    vertical-align: center;
-    padding-right: 0.5rem;
 }
 
 header .container #back-button{
@@ -141,12 +133,10 @@ header .container #back-button{
 
 .container-bible-content #current-chapter{
     text-align: left;
-    /* padding-left: 2em; */
-    margin: 1em;
+    padding-top: 1em;
 }
 
 .container-bible-content .bible-chapter-button{
-    /* border: 1px solid gray; */
     width: 80%;
     box-shadow: 0px 1px 3px gray;
     min-height: 10vh;
@@ -154,7 +144,7 @@ header .container #back-button{
 }
 .container-bible-content #decoration{
     color: var(--color-black);
-    z-index: inherit;
+    font-size: 30px;
 }
 
 /* section-audio-player */
@@ -169,7 +159,6 @@ header .container #back-button{
 
 
 .section-audio-player .container{
-    /* border: 1px solid red; */
     height: 100%;
     width: 80vw;
     max-width: 1200px;
