@@ -90,6 +90,7 @@ header .container #back-button{
     margin-left: auto;
     margin-right: auto;
     padding: 0;
+    padding-bottom: 10vh;
 
     text-align: center;
     overflow-y: scroll;
@@ -149,6 +150,7 @@ header .container #back-button{
 
 /* section-audio-player */
 .section-audio-player{
+    background: var(--color-yellow);
     height: 10vh;
     width: 100%;
     z-index: 200;
@@ -182,7 +184,7 @@ header .container #back-button{
     }
 }
 
-@media(max-width: 375px){
+@media(max-width: 700px){
     h1{
         font-size: 18px;
     }
