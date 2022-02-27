@@ -73,25 +73,29 @@ const currentChapter = $('#current-chapter');
 const backButton = $('#back-button');
 
 $('.bible-book-button').click(e => {
-  contentSection.css('z-index', '20');
-  renderContent(e.currentTarget.innerText);
+  contentSection.toggleClass('hidden');
   backButton.toggleClass('hidden');
+
+  renderContent(e.currentTarget.innerText);
 });
 
 backButton.click(()=>{
   backButton.toggleClass('hidden');
-  contentSection.css('z-index', '0');
+  contentSection.toggleClass('hidden');
   currentChapter.html('');
 })
 
 const renderContent = name => {
   const { no, chap } = bibles[name];
 
-  contentSection.html(`<h2 id="current-chapter">* ${name}</h2>`);
+  contentSection.html(`
+    <h2 id="current-chapter">${name}</h2>
+    <label id="decoration"><i class="fa-solid fa-an"></i></label>
+  `);
 
   [...Array(chap).keys()].forEach(i => {
     const id = `${host}/${no}/${no}_${i + 1}.mp3`;
-    const node = $(`<button class="bible-chapter-button" id="${id}">${i + 1}장</button>`);
+    const node = $(`<button class="bible-chapter-button" id="${id}">${name} ${i + 1}장</button>`);
     contentSection.append(node);
   });
 
