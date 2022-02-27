@@ -70,20 +70,24 @@ const bibles = {
 const selectSection = $('.container-bible-select');
 const contentSection = $('.container-bible-content');
 const currentChapter = $('#current-chapter');
+const bibleBookButton = $('.bible-book-button');
+const bibleChapterButton = $('.bible-chapter-button');
 const backButton = $('#back-button');
 
-$('.bible-book-button').click(e => {
+bibleBookButton.click(e => {
   contentSection.toggleClass('hidden');
   backButton.toggleClass('hidden');
 
   renderContent(e.currentTarget.innerText);
 });
 
+
 backButton.click(()=>{
   backButton.toggleClass('hidden');
   contentSection.toggleClass('hidden');
   currentChapter.html('');
 })
+
 
 const renderContent = name => {
   const { no, chap } = bibles[name];
@@ -99,8 +103,15 @@ const renderContent = name => {
     contentSection.append(node);
   });
 
-  $('.bible-chapter-button').click(e => {
+  bibleChapterButton.click(e => {
     console.log(e.currentTarget.id);
   });
 };
+
+const setScreenSize = () => {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+setScreenSize();
 
