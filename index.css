@@ -192,8 +192,13 @@ header #back-button{
     align-items: center;
 }
 
+.section-audio-player #current-music-title{
+    flex: 1;
+    font-size: 16px;
+}
+
 .section-audio-player .container audio{
-    width: 100%;
+    flex: 3;
 }
 
 @media(min-width: 1200px){

@@ -39,17 +39,13 @@ const renderContent = name => {
   `);
 
   [...Array(chap).keys()].forEach(i => {
-    // const id = `${host}/${no}/${no}_${i + 1}.mp3`;
     const id= `${no}_${i + 1}`;
     const node = $(`<button class="bible-chapter-button" id="${id}">${name} ${i + 1}장</button>`);
     contentSection.append(node);
   });
 
   $('.bible-chapter-button').click(e => {
-    // console.log(e.currentTarget.id);
-    onClickTrack(name, e.currentTarget.id);
-    // console.log(no, name, e.currentTarget.id);
-    
+    onClickBibleTrack(name, e.currentTarget.id);
   });
 };
 
