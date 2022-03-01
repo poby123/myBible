@@ -12,8 +12,14 @@
 <body>
     <header>
         <div class="container">
-            <button id="back-button" class="hidden"><i class="fa-solid fa-arrow-left"></i></button>
-            <h1>온라인 성경</h1>
+            <div class="sub-container">
+                <button id="back-button" class="hidden"><i class="fa-solid fa-arrow-left"></i></button>
+                <h1>온라인 성경</h1>
+            </div>
+            <div class="sub-container">
+                <button id="bc-button">구약</button>
+                <button id="ad-button">신약</button>
+            </div>
         </div>
     </header>
 
@@ -92,13 +98,15 @@
     </article>
     <article class="section-audio-player">
         <div class="container" id="audio-player">
-            <audio id="bible-audio" src="./에필로그.mp3" preload="metadata" controls></audio>
+            <audio src="./에필로그.mp3" preload="metadata" controls></audio>
             <!-- <audio src="http://210.217.24.54:88/mp3_bible/korean/1/1_1.mp3" preload="metadata" controls></audio> -->
         </div>
     </article>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/b4ada824cf.js" crossorigin="anonymous"></script>
+    <script src="constants.js"></script>
+    <script src="myaudio.js"></script>
     <script src="index.js"></script>
 </body>
 
