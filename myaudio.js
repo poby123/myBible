@@ -2,6 +2,7 @@ const audio = $('audio')[0];
 const currentAudioTitleNode = $('#current-music-title');
 const bibleArrays = Object.entries(bibles);
 
+let isPlayed = false;
 let currentStatus = {
     name: '창세기',
     bookNumber: 1,
@@ -47,23 +48,27 @@ const fetchAndPlay = (currentStatus) => {
     const src = getBibleAudioSource(currentStatus);
     const title = getBibleAudioTitle(currentStatus);
 
-    audio.pause();
-    audio.currentTime = 0;
+    if(isPlayed){
+        audio.pause();
+        audio.currentTime = 0;
+        isPlayed = false;
+    }
     currentAudioTitleNode.html(title);
-    console.log('fetch ', src);
-    
-    fetch(src).then(res => res.blob())
-    .then(blob => {
-        audio.src = blob;
-        return audio.play();
-    })
-    .then(_ => {
-        
-    })
-    .catch(e => {
-        console.log('error : ', e);
-        currentAudioTitleNode.text(`${title} 재생 중 오류가 발생했습니다.`);
-    })
+    console.log('source: ', src);
+    audio.src = src;
+    audio.load();
+    const playPromise = audio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then((_) => {
+          isPlayed = true;
+        })
+        .catch((e) => {
+          console.log(e);
+          currentAudioTitleNode.text(`${title} 재생 중 오류가 발생했습니다.`);
+        });
+    }
 }
 
 audio.addEventListener('ended', onEndAudio);
