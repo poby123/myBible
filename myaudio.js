@@ -23,8 +23,9 @@ const onEndAudio = () => {
     const {name, bookNumber, chapterNumber} = currentStatus;
     const numberOfChater = bibles[name].chap;
     
-    if(chapterNumber + 1 <= numberOfChater){
-        currentStatus.chapterNumber = chapterNumber + 1;
+    const next = Number(chapterNumber) + 1;
+    if(next <= numberOfChater){
+        currentStatus.chapterNumber = next;
     }
     else{
         const next = bibleArrays[(bookNumber) % bibleArrays.length];
@@ -45,7 +46,7 @@ const getBibleAudioTitle = ({name, chapterNumber}) => {
 }
 
 const fetchAndPlay = (currentStatus) => {
-    const src = getBibleAudioSource(currentStatus);
+    const src = 'https://previews.cambridge-mt.com/LieToMe_Preview.mp3';//getBibleAudioSource(currentStatus);
     const title = getBibleAudioTitle(currentStatus);
 
     if(isPlayed){
@@ -55,6 +56,7 @@ const fetchAndPlay = (currentStatus) => {
     }
     currentAudioTitleNode.html(title);
     console.log('source: ', src);
+    // src = 
     audio.src = src;
     audio.load();
     const playPromise = audio.play();

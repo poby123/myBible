@@ -4,6 +4,8 @@
     --color-light-pink: #FFB2A6;
     --color-deep-pink: #FF8AAE;
     --color-black: #1A1A40;
+
+    --font-size-lg: 
 }
 
 * {
@@ -135,7 +137,7 @@ header #back-button{
     font-size: 28px;
 }
 
-.container-bible-content{
+.container-bible-chapter{
     position: absolute;
     background: var(--color-yellow);
     left: 50%;
@@ -153,20 +155,46 @@ header #back-button{
     align-items: center;
 }
 
-.container-bible-content #current-chapter{
+.container-bible-chapter #current-chapter{
     text-align: left;
     padding-top: 1em;
 }
 
-.container-bible-content .bible-chapter-button{
+.container-bible-chapter .bible-chapter-button{
     width: 80%;
     box-shadow: 0px 1px 3px gray;
     min-height: calc(var(--vh, 1vh) * 10);
     font-size: 1em;
 }
-.container-bible-content #decoration{
+.container-bible-chapter #decoration{
     color: var(--color-black);
     font-size: 30px;
+}
+
+/* container bible content */
+.container-bible-content{
+    position: absolute;
+    background: var(--color-yellow);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+
+    padding-bottom: calc(var(--vh, 1vh) * 10);
+    width: 90vw;
+    max-width: 1200px;
+    height: 100%;
+    overflow-y: scroll;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 18px;
+}
+
+.container-bible-content #current-chapter{
+    text-align: left;
+    padding-top: 1em;
+    padding-bottom: 1em;
 }
 
 /* section-audio-player */
@@ -233,7 +261,7 @@ header #back-button{
         margin: 0.5rem;
     }
 
-    .container-bible-content .bible-chapter-button{
+    .container-bible-chapter .bible-chapter-button{
         font-size: 16px;
     }
 }
