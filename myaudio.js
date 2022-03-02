@@ -66,7 +66,7 @@ const fetchAndPlay = (currentStatus) => {
         })
         .catch((e) => {
           console.log(e);
-          currentAudioTitleNode.text(`${title} 재생 중 오류가 발생했습니다.`);
+          currentAudioTitleNode.text(`${title} 재생 중 ${e} 오류가 발생했습니다.`);
         });
     }
 }
