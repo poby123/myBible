@@ -1,35 +1,4 @@
-// const audio = $('audio')[0];
-let soundBuffer = null;
-// Fix up prefixing
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-let context = new AudioContext();
-
-function loadSound(url) {
-  const request = new XMLHttpRequest();
-  request.open('GET', url, true);
-  request.responseType = 'arraybuffer';
-
-  // Decode asynchronously
-  request.onload = function() {
-    context.decodeAudioData(request.response, function(buffer) {
-      soundBuffer = buffer;
-      playSound(soundBuffer);
-    }, (e)=>{
-        console.log(e);
-    });
-  }
-  request.send();
-}
-
-function playSound(buffer) {
-  var source = context.createBufferSource(); // creates a sound source
-  source.buffer = buffer;                    // tell the source which sound to play
-  source.connect(context.destination);       // connect the source to the context's destination (the speakers)
-  source.start(0);                           // play the source now                                             // note: on older systems, may have to use deprecated noteOn(time);
-}
-
-
-let audio = null;
+const audio = $('audio')[0];
 const currentAudioTitleNode = $('#current-music-title');
 const bibleArrays = Object.entries(bibles);
 
@@ -79,29 +48,27 @@ const fetchAndPlay = (currentStatus) => {
     const src = getBibleAudioSource(currentStatus);
     const title = getBibleAudioTitle(currentStatus);
 
-    loadSound(src);
-
-    // if(isPlayed && audio){
-    //     audio.pause();
-    //     audio.currentTime = 0;
-    //     isPlayed = false;
-    // }
+    if(isPlayed){
+        audio.pause();
+        audio.currentTime = 0;
+        isPlayed = false;
+    }
     currentAudioTitleNode.html(title);
-    // console.log('source: ', src);
-    // // audio = new Audio(src);
-    // audio.addEventListener('ended', onEndAudio);
-    // // audio.src = src;
-    // audio.load();
-    // const playPromise = audio.play();
+    console.log('source: ', src);
+    audio.src = src;
+    audio.load();
+    const playPromise = audio.play();
 
-    // if (playPromise !== undefined) {
-    //   playPromise
-    //     .then((_) => {
-    //       isPlayed = true;
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //       currentAudioTitleNode.text(`${title} 재생 중 ${e} 오류가 발생했습니다.`);
-    //     });
-    // }
+    if (playPromise !== undefined) {
+      playPromise
+        .then((_) => {
+          isPlayed = true;
+        })
+        .catch((e) => {
+          console.log(e);
+          currentAudioTitleNode.text(`${title} 재생 중 ${e} 오류가 발생했습니다.`);
+        });
+    }
 }
+
+audio.addEventListener('ended', onEndAudio);
