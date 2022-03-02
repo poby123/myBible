@@ -5,6 +5,17 @@ const currentChapter = $('#current-chapter');
 const backButton = $('#back-button');
 const bcButton = $('#bc-button');
 const adButton = $('#ad-button');
+
+const audio = $('audio')[0];
+const currentAudioTitleNode = $('#current-music-title');
+
+/* states */
+let isPlayed = false;
+let currentStatus = {
+    name: '창세기',
+    bookNumber: 1,
+    chapterNumber: 1
+}
 let stack = Array();
 
 /* button event listeners */
@@ -46,9 +57,8 @@ adButton.click(()=>{
 })
 
 /* callback functions */
-const renderContents = (name, chap) => {
+const renderContents = (name, chapter) => {
   const keyword = bibles[name].keyword;
-  const chapter = chap.split('_')[1];
   const content = bible[keyword][chapter];
 
   contentSection.html(`
@@ -77,8 +87,11 @@ const renderChapters = name => {
   $('.bible-chapter-button').click(e => {
     stack.push('bible-content');
     contentSection.toggleClass('hidden');
-    renderContents(name, e.currentTarget.id);
-    // onClickBibleTrack(name, e.currentTarget.id);
+    const chap = e.currentTarget.id;
+    const chapter = chap.split('_')[1];
+    
+    renderContents(name, chapter);
+    onClickBibleTrack(name, chapter);
   });
 };
 
@@ -86,6 +99,44 @@ const renderChapters = name => {
 const setScreenSize = () => {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+
+const getPreviousStatus = (currentStatus) => {
+  const {bookNumber, chapterNumber} = currentStatus;
+  let newStatus = currentStatus;
+
+  const nextChapter = Number(chapterNumber) - 1;
+  if(nextChapter > 0){
+      newStatus.chapterNumber = nextChapter;
+  }
+  else {
+    const nextBookNumber = (bookNumber - 1) <= 0 ? bibleArrays.length : (bookNumber - 1);
+    const next = bibleArrays[nextBookNumber - 1];
+    newStatus.name = next[0];
+    newStatus.bookNumber = next[1].no;
+    newStatus.chapterNumber = 1;
+  }
+
+  return newStatus;
+}
+
+const getNextStatus = (currentStatus) => {
+  const {name, bookNumber, chapterNumber} = currentStatus;
+  const numberOfChater = bibles[name].chap;
+  let newStatus = currentStatus;
+  
+  const nextChapter = Number(chapterNumber) + 1;
+  if(nextChapter <= numberOfChater){
+      newStatus.chapterNumber = nextChapter;
+  }
+  else{
+      const next = bibleArrays[(bookNumber) % bibleArrays.length];
+      newStatus.name = next[0];
+      newStatus.bookNumber = next[1].no;
+      newStatus.chapterNumber = 1;
+  }
+
+  return newStatus;
 }
 
 setScreenSize();

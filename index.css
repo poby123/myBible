@@ -5,7 +5,10 @@
     --color-deep-pink: #FF8AAE;
     --color-black: #1A1A40;
 
-    --font-size-lg: 
+    --font-size-xl: 28px;
+    --font-size-lg: 18px;
+    --font-size-md: 16px;
+    --font-size-sm: 12px;
 }
 
 * {
@@ -46,7 +49,7 @@ button:hover{
 
 /* header */
 header{
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     position: sticky;
     min-height: calc(var(--vh, 1vh) * 10);
     box-shadow: 0px 2px 5px gray;
@@ -72,19 +75,19 @@ header .sub-container{
 }
 
 header #back-button{
-    font-size: 25px;
+    font-size: var(--font-size-xl);
     padding-top: 5px;
     margin-right: 15px;
 }
 
 #bc-button{
-    font-size: 25px;
+    font-size: var(--font-size-xl);
     background: var(--color-blue);
     margin-right: 0.2rem;
 }
 
 #ad-button{
-    font-size: 25px;
+    font-size: var(--font-size-xl);
     background: var(--color-deep-pink);
 }
 
@@ -120,12 +123,10 @@ header #back-button{
 
 .container-bible-select .bc{
     background: var(--color-blue);
-    font-size: 10px;
 }
 
 .container-bible-select .ad{
     background: var(--color-deep-pink);
-    font-size: 10px;
 }
 
 .container-bible-select .bible-book-button{
@@ -134,7 +135,7 @@ header #back-button{
     height: 25vw;
     margin: 0.5rem;
 
-    font-size: 28px;
+    font-size: var(--font-size-xl);
 }
 
 .container-bible-chapter{
@@ -164,11 +165,11 @@ header #back-button{
     width: 80%;
     box-shadow: 0px 1px 3px gray;
     min-height: calc(var(--vh, 1vh) * 10);
-    font-size: 1em;
+    font-size: var(--font-size-lg);
 }
 .container-bible-chapter #decoration{
     color: var(--color-black);
-    font-size: 30px;
+    font-size: var(--font-size-xl);
 }
 
 /* container bible content */
@@ -188,7 +189,8 @@ header #back-button{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    font-size: 18px;
+    font-size: var(--font-size-lg);
+    line-height: 2em;
 }
 
 .container-bible-content #current-chapter{
@@ -222,7 +224,7 @@ header #back-button{
 
 .section-audio-player #current-music-title{
     flex: 1;
-    font-size: 16px;
+    font-size: var(--font-size-md);
 }
 
 .section-audio-player .container audio{

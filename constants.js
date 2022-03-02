@@ -67,3 +67,4 @@ const bibles = {
   유다서: { no: 65, chap: 1, keyword: "유"},
   요한계시록: { no: 66, chap: 22, keyword: "계"},
 };
+const bibleArrays = Object.entries(bibles);

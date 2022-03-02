@@ -1,17 +1,4 @@
-const audio = $('audio')[0];
-const currentAudioTitleNode = $('#current-music-title');
-const bibleArrays = Object.entries(bibles);
-
-let isPlayed = false;
-let currentStatus = {
-    name: '창세기',
-    bookNumber: 1,
-    chapterNumber: 1
-}
-
-const onClickBibleTrack = (name, chap) => {
-    const chapter = chap.split('_')[1];
-    
+const onClickBibleTrack = (name, chapter) => {
     currentStatus.name = name;
     currentStatus.bookNumber = bibles[name].no;
     currentStatus.chapterNumber = chapter;
@@ -20,25 +7,14 @@ const onClickBibleTrack = (name, chap) => {
 }
 
 const onEndAudio = () => {
-    const {name, bookNumber, chapterNumber} = currentStatus;
-    const numberOfChater = bibles[name].chap;
-    
-    const next = Number(chapterNumber) + 1;
-    if(next <= numberOfChater){
-        currentStatus.chapterNumber = next;
-    }
-    else{
-        const next = bibleArrays[(bookNumber) % bibleArrays.length];
-        currentStatus.name = next[0];
-        currentStatus.bookNumber = next[1].no;
-        currentStatus.chapterNumber = 1;
-    }
-    
+    currentStatus = getNextStatus(currentStatus);
     fetchAndPlay(currentStatus);
+    renderContents(currentStatus.name, currentStatus.chapterNumber);
 }
 
 const getBibleAudioSource = ({bookNumber, chapterNumber}) => {
-    return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`;
+    // return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`;
+    return `https://www.wordproaudio.net/bibles/app/audio/11/${bookNumber}/${chapterNumber}.mp3`
 }
 
 const getBibleAudioTitle = ({name, chapterNumber}) => {
@@ -46,7 +22,7 @@ const getBibleAudioTitle = ({name, chapterNumber}) => {
 }
 
 const fetchAndPlay = (currentStatus) => {
-    const src = 'https://previews.cambridge-mt.com/LieToMe_Preview.mp3';//getBibleAudioSource(currentStatus);
+    const src = getBibleAudioSource(currentStatus);
     const title = getBibleAudioTitle(currentStatus);
 
     if(isPlayed){
