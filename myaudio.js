@@ -1,4 +1,5 @@
-const audio = $('audio')[0];
+// const audio = $('audio')[0];
+let audio = null;
 const currentAudioTitleNode = $('#current-music-title');
 const bibleArrays = Object.entries(bibles);
 
@@ -48,14 +49,16 @@ const fetchAndPlay = (currentStatus) => {
     const src = getBibleAudioSource(currentStatus);
     const title = getBibleAudioTitle(currentStatus);
 
-    if(isPlayed){
+    if(isPlayed && audio){
         audio.pause();
         audio.currentTime = 0;
         isPlayed = false;
     }
     currentAudioTitleNode.html(title);
     console.log('source: ', src);
-    audio.src = src;
+    audio = new Audio(src);
+    audio.addEventListener('ended', onEndAudio);
+    // audio.src = src;
     audio.load();
     const playPromise = audio.play();
 
@@ -70,5 +73,3 @@ const fetchAndPlay = (currentStatus) => {
         });
     }
 }
-
-audio.addEventListener('ended', onEndAudio);
