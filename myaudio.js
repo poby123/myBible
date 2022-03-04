@@ -48,7 +48,7 @@ const updateDurationSlider = () => {
     if (!isNaN(audio.duration)) {
         position = audio.currentTime * (100 / audio.duration);
         audioSlider.val(position);
-        currentTimeNode.html(parseSeconds(audioSlider.val()))
+        currentTimeNode.html(parseSeconds(audio.currentTime));
     }
 }
 

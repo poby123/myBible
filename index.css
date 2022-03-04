@@ -223,6 +223,9 @@ header #back-button{
     width: transparent;
     height: 20px;
     margin-bottom: 40px;
+    /* background: green; */
+    background: none;
+    z-index: 500;
 }
 
 .section-audio-player .duration:hover{
@@ -236,6 +239,8 @@ header #back-button{
     display: flex;
     justify-content: space-between;
     padding-top: 20px;
+    background: none;
+    z-index: inherit;
 }
 
 #current-time{
@@ -260,7 +265,8 @@ header #back-button{
     display: flex;
     justify-content: space-around;
     align-items: center;
-    /* border: 1px solid red; */
+    background: none;
+    z-index: 300;
 
     transform: translateY(-50%);
 }
