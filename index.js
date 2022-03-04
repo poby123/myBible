@@ -150,6 +150,8 @@ const renderChapters = name => {
     renderContents(name, chapter); // for render contents
     onClickBibleTrack(name, chapter); // for audio
   });
+
+  chapterSelectSection.scrollTop(0);
 };
 
 
@@ -165,7 +167,7 @@ const renderContents = (name, chapter) => {
     contentSection.append(node);
   }
 
-  contentSection.scrollTop = 0;
+  contentSection.scrollTop(0);
 }
 
 

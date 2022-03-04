@@ -104,7 +104,9 @@ header #back-button{
     z-index: 100;
 }
 
-/* section-bible-select */
+
+
+/* bible books */
 .container-bible-books{
     position: absolute;
     left: 50%;
@@ -138,6 +140,7 @@ header #back-button{
     font-size: var(--font-size-xl);
 }
 
+/* bible chapters */
 .container-bible-chapter{
     position: absolute;
     background: var(--color-yellow);
@@ -172,6 +175,8 @@ header #back-button{
     font-size: var(--font-size-xl);
 }
 
+
+
 /* container bible content */
 .container-bible-content{
     position: absolute;
@@ -198,6 +203,7 @@ header #back-button{
     padding-top: 1em;
     padding-bottom: 1em;
 }
+
 
 /* section-audio-player */
 .section-audio-player{
