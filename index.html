@@ -98,14 +98,25 @@
         </section>
         <section class="container-bible-content hidden">
         </section>
-    </article>
-    <article class="section-audio-player">
-        <div class="container" id="audio-player">
-            <span id="current-music-title">창세기 1장</span>
-            <audio src="https://previews.cambridge-mt.com/LieToMe_Preview.mp3" preload="metadata" controls></audio>
-            <!-- <audio src="./에필로그.mp3" controls></audio> -->
-        </div>
-    </article>
+        </article>
+        <article class="section-audio-player">
+            <div class="container" id="audio-player">
+                <!-- <audio id='my-audio' src="https://previews.cambridge-mt.com/LieToMe_Preview.mp3" preload="metadata"></audio> -->
+                <div class="duration">
+                    <input type="range" min="0" max="100" value="0" id="duration-slider">
+                </div>
+                <div class="duration-time">
+                    <span id="current-time">0:00</span>
+                    <span id="end-time">1:30</span>
+                </div>
+                <div class="button-container">
+                    <button id="backward"><i class="fa-solid fa-backward-step"></i></button>
+                    <button id="play"><i class="fa-solid fa-play"></i></button>
+                    <button id="forward"><i class="fa-solid fa-forward-step"></i></button>
+                </div>
+                <!-- <audio src="./에필로그.mp3" controls></audio> -->
+            </div>
+        </article>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/b4ada824cf.js" crossorigin="anonymous"></script>

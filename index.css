@@ -210,25 +210,68 @@ header #back-button{
     bottom: 0;
 }
 
-
 .section-audio-player .container{
     height: 100%;
     width: 80vw;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.section-audio-player .duration{
+    position: absolute;
+    width: transparent;
+    height: 20px;
+    margin-bottom: 40px;
+}
+
+.section-audio-player .duration:hover{
+    cursor: pointer;
+}
+
+.section-audio-player .duration-time{
+    position: relative;
+    width: 100%;
+
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    padding-top: 20px;
+}
+
+#current-time{
+    left: 2rem;
+}
+
+#end-time{
+    right: 2rem;
+}
+
+#duration-slider{
+    width: 80vw ;
+    max-width: 1200px;
+}
+
+.section-audio-player .button-container{
+    height: 100%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    justify-content: space-around;
     align-items: center;
+    /* border: 1px solid red; */
+
+    transform: translateY(-50%);
+}
+
+.section-audio-player .button-container button{
+    font-size: var(--font-size-xl);
 }
 
 .section-audio-player #current-music-title{
     flex: 1;
     font-size: var(--font-size-md);
-}
-
-.section-audio-player .container audio{
-    flex: 3;
 }
 
 @media(min-width: 1200px){

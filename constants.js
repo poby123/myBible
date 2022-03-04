@@ -1,5 +1,5 @@
 const host = 'http://210.217.24.54:88/mp3_bible/korean';
-const bibles = {
+const bibleInfos = {
   창세기: { no: 1, numberOfChapters: 50, keyword: "창"},
   출애굽기: { no: 2, numberOfChapters: 40, keyword: "출"},
   레위기: { no: 3, numberOfChapters: 27, keyword: "레"},
@@ -67,4 +67,4 @@ const bibles = {
   유다서: { no: 65, numberOfChapters: 1, keyword: "유"},
   요한계시록: { no: 66, numberOfChapters: 22, keyword: "계"},
 };
-const bibleArrays = Object.entries(bibles);
+const bibleArrays = Object.entries(bibleInfos);

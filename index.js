@@ -6,7 +6,12 @@ const backButton = $('#back-button');
 const bcButton = $('#bc-button'); // 구약 버튼
 const adButton = $('#ad-button'); // 신약 버튼
 
-const audio = $('audio')[0];
+const audio = document.createElement('audio');
+const audioSlider = $('#duration-slider');
+const playButton = $('#play');
+const currentTimeNode = $('#current-time');
+const endTimeNode = $('#end-time');
+
 const currentAudioTitleNode = $('#current-music-title');
 const windowType = {
   BIBLE_BOOK: 'BIBLE_BOOK', // defaults
@@ -21,35 +26,34 @@ let currentStatus = {
     bookNumber: 1,
     chapterNumber: 1
 }
-let stack = Array(); // windows stack
+let stack = Array(windowType.BIBLE_BOOK); // windows stack
 
 
 
 /* button event listeners */
 $('.bible-book-button').click(e => {
+  
   chapterSelectSection.toggleClass('hidden'); // show
+  backButton.toggleClass('hidden'); // show
 
-  if(stack.length == 0){
-    backButton.toggleClass('hidden'); // show
-  }
-
+  stack.push(windowType.BIBLE_CHAPTER);
   renderChapters(e.currentTarget.innerText);
 });
 
 
 backButton.click(()=>{
-  const it = stack.pop();
-
-  if(stack.length == 0){
-    backButton.toggleClass('hidden'); // hide back button
+  if(stack.length == 1){
+    return;
   }
+  
+  const it = stack.pop();
+  
   if(it == windowType.BIBLE_CHAPTER){
+    backButton.toggleClass('hidden'); // hide back button
     chapterSelectSection.toggleClass('hidden'); // hide chapter section
-    currentChapter.html('');
   }
   else if(it == windowType.BIBLE_CONTENTS){
     contentSection.toggleClass('hidden'); // hide content section
-    contentSection.html('');
   }
 })
 
@@ -66,11 +70,64 @@ adButton.click(()=>{
 })
 
 
+/* audio buttons event listener */
+playButton.on('click', () => {
+  if(isPlayed){
+      pause();
+  }
+  else{
+      play();
+  }
+});
+
+
+$('#backward').on('click', () => {
+  currentStatus = getPreviousStatus(currentStatus);
+  
+  // 
+  const top = stack[stack.length - 1];
+  if(top == windowType.BIBLE_CHAPTER){
+    stack.push(windowType.BIBLE_CONTENTS);
+    contentSection.toggleClass('hidden'); // show
+  }
+  else if(top == windowType.BIBLE_BOOK){
+    stack.push(windowType.BIBLE_CONTENTS);
+    backButton.toggleClass('hidden'); // show
+    contentSection.toggleClass('hidden'); // show
+  }
+  //
+  const {name, chapterNumber} = currentStatus;
+  renderContents(name, chapterNumber);
+  onClickBibleTrack(name, chapterNumber);
+})
+
+
+
+$('#forward').on('click', () => {
+  currentStatus = getNextStatus(currentStatus);
+  
+  // 
+  const top = stack[stack.length - 1];
+  if(top == windowType.BIBLE_CHAPTER){
+    stack.push(windowType.BIBLE_CONTENTS);
+    contentSection.toggleClass('hidden'); // show
+  }
+  else if(top == windowType.BIBLE_BOOK){
+    stack.push(windowType.BIBLE_CONTENTS);
+    backButton.toggleClass('hidden'); // show
+    contentSection.toggleClass('hidden'); // show
+  }
+  //
+
+  const {name, chapterNumber} = currentStatus;
+  renderContents(name, chapterNumber);
+  onClickBibleTrack(name, chapterNumber);
+})
+
 
 /* windows render functions */
 const renderChapters = name => {
-  stack.push(windowType.BIBLE_CHAPTER);
-  const { no, numberOfChapters } = bibles[name];
+  const { no, numberOfChapters } = bibleInfos[name];
 
   chapterSelectSection.html(`
     <h2 id="current-chapter">${name}</h2>
@@ -97,7 +154,7 @@ const renderChapters = name => {
 
 
 const renderContents = (name, chapter) => {
-  const keyword = bibles[name].keyword;
+  const keyword = bibleInfos[name].keyword;
   const content = bible[keyword][chapter];
 
   contentSection.html(`
@@ -110,6 +167,7 @@ const renderContents = (name, chapter) => {
 
   contentSection.scrollTop = 0;
 }
+
 
 
 /* utility functions */
@@ -132,7 +190,7 @@ const getPreviousStatus = (currentStatus) => {
     const next = bibleArrays[nextBookNumber - 1];
     newStatus.name = next[0];
     newStatus.bookNumber = next[1].no;
-    newStatus.chapterNumber = 1;
+    newStatus.chapterNumber = next[1].numberOfChapters;
   }
 
   return newStatus;
@@ -141,7 +199,7 @@ const getPreviousStatus = (currentStatus) => {
 
 const getNextStatus = (currentStatus) => {
   const {name, bookNumber, chapterNumber} = currentStatus;
-  const numberOfChater = bibles[name].numberOfChapters;
+  const numberOfChater = bibleInfos[name].numberOfChapters;
   let newStatus = currentStatus;
   
   const nextChapter = Number(chapterNumber) + 1;
@@ -156,6 +214,13 @@ const getNextStatus = (currentStatus) => {
   }
 
   return newStatus;
+}
+
+
+const parseSeconds = (sec) => {
+  const date = new Date(0);
+  date.setSeconds(sec);
+  return date.toISOString().substr(14, 5);
 }
 
 
