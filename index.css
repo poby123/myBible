@@ -105,7 +105,7 @@ header #back-button{
 }
 
 /* section-bible-select */
-.container-bible-select{
+.container-bible-books{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -121,15 +121,15 @@ header #back-button{
     overflow-y: scroll;
 }
 
-.container-bible-select .bc{
+.container-bible-books .bc{
     background: var(--color-blue);
 }
 
-.container-bible-select .ad{
+.container-bible-books .ad{
     background: var(--color-deep-pink);
 }
 
-.container-bible-select .bible-book-button{
+.container-bible-books .bible-book-button{
     box-shadow: 0px 2px 3px gray;
     width: 25vw;
     height: 25vw;
@@ -232,7 +232,7 @@ header #back-button{
 }
 
 @media(min-width: 1200px){
-    .container-bible-select .bible-book-button{
+    .container-bible-books .bible-book-button{
         width: 15vw;
         height: 15vw;
         margin-top: 1vw;
@@ -256,7 +256,7 @@ header #back-button{
         font-size: 16px;
     }
 
-    .container-bible-select .bible-book-button{
+    .container-bible-books .bible-book-button{
         font-size: 16px;
         width: 23vw;
         height: 23vw;

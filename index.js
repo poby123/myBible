@@ -1,13 +1,18 @@
-const bookSelectSection = $('.container-bible-select');
-const chapterSelectSection = $('.container-bible-chapter');
-const contentSection = $('.container-bible-content');
-const currentChapter = $('#current-chapter');
+const bookSelectSection = $('.container-bible-books'); // '창세기', '출애굽기' 등의 선택
+const chapterSelectSection = $('.container-bible-chapter'); // n장 선택
+const contentSection = $('.container-bible-content'); // 성경 구절이 나오는 부분
+const currentChapter = $('#current-chapter'); 
 const backButton = $('#back-button');
-const bcButton = $('#bc-button');
-const adButton = $('#ad-button');
+const bcButton = $('#bc-button'); // 구약 버튼
+const adButton = $('#ad-button'); // 신약 버튼
 
 const audio = $('audio')[0];
 const currentAudioTitleNode = $('#current-music-title');
+const windowType = {
+  BIBLE_BOOK: 'BIBLE_BOOK', // defaults
+  BIBLE_CHAPTER: 'BIBLE_CHAPTER',
+  BIBLE_CONTENTS: 'BIBLE_CONTENTS'
+}
 
 /* states */
 let isPlayed = false;
@@ -16,47 +21,81 @@ let currentStatus = {
     bookNumber: 1,
     chapterNumber: 1
 }
-let stack = Array();
+let stack = Array(); // windows stack
+
+
 
 /* button event listeners */
 $('.bible-book-button').click(e => {
-  chapterSelectSection.toggleClass('hidden');
+  chapterSelectSection.toggleClass('hidden'); // show
 
   if(stack.length == 0){
-    backButton.toggleClass('hidden');
+    backButton.toggleClass('hidden'); // show
   }
 
-  stack.push('chapter-select');
   renderChapters(e.currentTarget.innerText);
 });
+
 
 backButton.click(()=>{
   const it = stack.pop();
 
   if(stack.length == 0){
-    backButton.toggleClass('hidden');
+    backButton.toggleClass('hidden'); // hide back button
   }
-  if(it == 'chapter-select'){
-    chapterSelectSection.toggleClass('hidden');
+  if(it == windowType.BIBLE_CHAPTER){
+    chapterSelectSection.toggleClass('hidden'); // hide chapter section
     currentChapter.html('');
   }
-  else if(it == 'bible-content'){
-    contentSection.toggleClass('hidden');
+  else if(it == windowType.BIBLE_CONTENTS){
+    contentSection.toggleClass('hidden'); // hide content section
     contentSection.html('');
   }
 })
+
 
 bcButton.click(()=>{
   $('.bc').toggleClass('no-display'); 
   bcButton.toggleClass('no-background');
 })
 
+
 adButton.click(()=>{
   $('.ad').toggleClass('no-display'); 
   adButton.toggleClass('no-background');
 })
 
-/* callback functions */
+
+
+/* windows render functions */
+const renderChapters = name => {
+  stack.push(windowType.BIBLE_CHAPTER);
+  const { no, numberOfChapters } = bibles[name];
+
+  chapterSelectSection.html(`
+    <h2 id="current-chapter">${name}</h2>
+    <button id="decoration"><i class="fas fa-ellipsis-h"></i></button>
+  `);
+
+  [...Array(numberOfChapters).keys()].forEach(i => {
+    const id= `${no}_${i + 1}`;
+    const node = $(`<button class="bible-chapter-button" id="${id}">${name} ${i + 1}장</button>`);
+    chapterSelectSection.append(node);
+  });
+
+  // register event listener to chapter buttons
+  $('.bible-chapter-button').click(e => {
+    stack.push(windowType.BIBLE_CONTENTS);
+
+    contentSection.toggleClass('hidden'); // show
+    const chapter = e.currentTarget.id.split('_')[1];
+    
+    renderContents(name, chapter); // for render contents
+    onClickBibleTrack(name, chapter); // for audio
+  });
+};
+
+
 const renderContents = (name, chapter) => {
   const keyword = bibles[name].keyword;
   const content = bible[keyword][chapter];
@@ -68,38 +107,17 @@ const renderContents = (name, chapter) => {
     const node = $(`<span class='sentence'>${i[0]} ${i[1].t}</span>`);
     contentSection.append(node);
   }
+
+  contentSection.scrollTop = 0;
 }
 
-const renderChapters = name => {
-  const { no, chap } = bibles[name];
-
-  chapterSelectSection.html(`
-    <h2 id="current-chapter">${name}</h2>
-    <button id="decoration"><i class="fas fa-ellipsis-h"></i></button>
-  `);
-
-  [...Array(chap).keys()].forEach(i => {
-    const id= `${no}_${i + 1}`;
-    const node = $(`<button class="bible-chapter-button" id="${id}">${name} ${i + 1}장</button>`);
-    chapterSelectSection.append(node);
-  });
-
-  $('.bible-chapter-button').click(e => {
-    stack.push('bible-content');
-    contentSection.toggleClass('hidden');
-    const chap = e.currentTarget.id;
-    const chapter = chap.split('_')[1];
-    
-    renderContents(name, chapter);
-    onClickBibleTrack(name, chapter);
-  });
-};
 
 /* utility functions */
 const setScreenSize = () => {
   let vh = window.innerHeight * 0.01;
   document.documentElement.style.setProperty('--vh', `${vh}px`);
 }
+
 
 const getPreviousStatus = (currentStatus) => {
   const {bookNumber, chapterNumber} = currentStatus;
@@ -120,9 +138,10 @@ const getPreviousStatus = (currentStatus) => {
   return newStatus;
 }
 
+
 const getNextStatus = (currentStatus) => {
   const {name, bookNumber, chapterNumber} = currentStatus;
-  const numberOfChater = bibles[name].chap;
+  const numberOfChater = bibles[name].numberOfChapters;
   let newStatus = currentStatus;
   
   const nextChapter = Number(chapterNumber) + 1;
@@ -139,5 +158,7 @@ const getNextStatus = (currentStatus) => {
   return newStatus;
 }
 
+
+/* on window loaded */
 setScreenSize();
 window.addEventListener('resize', setScreenSize);
