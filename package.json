@@ -1,0 +1,25 @@
+{
+  "name": "my-bible",
+  "version": "1.0.0",
+  "description": "온라인으로 성경을 읽고, 들을 수 있는 것을 목적으로 합니다.",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poby123/myBible.git"
+  },
+  "author": "poby123",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poby123/myBible/issues"
+  },
+  "homepage": "https://github.com/poby123/myBible#readme"
+}
