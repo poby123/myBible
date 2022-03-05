@@ -66,7 +66,7 @@ header{
 }
 
 header .container{
-    width: 90vw;
+    width: 95vw;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
@@ -135,7 +135,7 @@ header #bc-button.no-background, #ad-button.no-background,
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 90vw;
+    width: 95vw;
     max-width: 1200px;
     height: 100%;
     margin-left: auto;
@@ -159,19 +159,13 @@ header #bc-button.no-background, #ad-button.no-background,
     background: var(--color--gray);
 }
 
-.container-bible-books .bible-book-button{
-    box-shadow: 0px 2px 3px gray;
-    width: 25vw;
-    height: 25vw;
-    margin: 0.5rem;
-
-    font-size: var(--font-size-xl);
-}
-
+.container-bible-books .bible-book-button,
 .container-bible-books .audio-book-button{
     box-shadow: 0px 2px 3px gray;
-    width: 25vw;
-    height: 25vw;
+    min-width: 25vw;
+    min-height: 25vw;
+    max-width: 25vw;
+    max-height: 25vw;
     margin: 0.5rem;
 
     font-size: var(--font-size-xl);
@@ -186,7 +180,7 @@ header #bc-button.no-background, #ad-button.no-background,
     z-index: 20;
 
     padding-bottom: calc(var(--vh, 1vh) * 10);
-    width: 90vw;
+    width: 95vw;
     max-width: 1200px;
     height: 100%;
     overflow-y: scroll;
@@ -339,10 +333,13 @@ header #bc-button.no-background, #ad-button.no-background,
 }
 
 @media(min-width: 1200px){
-    .container-bible-books .bible-book-button{
-        width: 15vw;
-        height: 15vw;
-        margin-top: 1vw;
+    .container-bible-books .bible-book-button,
+    .container-bible-books .audio-book-button{
+        min-width: 12vw;
+        min-height: 12vw;
+        max-width: 12vw;
+        max-height: 12vw;
+        margin: 0.5rem;
     }
 }
 
