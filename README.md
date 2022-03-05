@@ -6,7 +6,8 @@
 ### 일반 오디오
 [custom.js](custom.js)에서 `title`과 `source`를 적당히 수정해주시면 됩니다.
 
-### 성경 오디오: [myaudio.js](myaudio.js)의 
+### 성경 오디오
+[myaudio.js](myaudio.js)의 
 ```js
 4 const getBibleAudioSource = ({ bookNumber, chapterNumber }) => {
 5 // return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`; // 원래 소스
