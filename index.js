@@ -307,4 +307,5 @@ window.addEventListener('resize', setScreenSize);
 window.addEventListener('beforeunload', () => {
   audio.pause();
   audio.currentTime = 0;
+  audio.remove();
 })
