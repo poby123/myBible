@@ -230,8 +230,10 @@ header #bc-button.no-background, #ad-button.no-background,
 }
 
 .container-bible-content #current-chapter{
+    width: 100%;
     text-align: left;
     padding-top: 1em;
+    /* border: 1px solid red; */
     padding-bottom: 1em;
 }
 
