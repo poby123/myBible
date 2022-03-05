@@ -1,8 +1,23 @@
 /* audio states */
 let timer = 0;
 
+const getBibleAudioSource = ({ bookNumber, chapterNumber }) => {
+    // return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`; // 원래 소스
+    return `https://www.wordproaudio.net/bibles/app/audio/11/${bookNumber}/${chapterNumber}.mp3` // 임시소스
+}
+
+const onClickAudioTrack = (index) => {
+    currentStatus.audioType = AUDIO_TYPE.NORMAL;
+    currentStatus.name = audios[index].title;
+    currentStatus.source = audios[index].source;
+    currentStatus.index = index;
+
+    fetchAndPlay(currentStatus);
+}
+
 
 const onClickBibleTrack = (name, chapter) => {
+    currentStatus.audioType = AUDIO_TYPE.BIBLE;
     currentStatus.name = name;
     currentStatus.bookNumber = bibleInfos[name].no;
     currentStatus.chapterNumber = chapter;
@@ -12,22 +27,20 @@ const onClickBibleTrack = (name, chapter) => {
 
 
 const onEndAudio = () => {
+    if (currentStatus.audioType === AUDIO_TYPE.NORMAL) {
+        pause();
+        return;
+    }
     currentStatus = getNextStatus(currentStatus);
     fetchAndPlay(currentStatus);
     renderContents(currentStatus.name, currentStatus.chapterNumber);
+
 }
 
 
 const onChangeDuration = () => {
     const sliderPosition = audio.duration * (audioSlider.val() / 100);
-    console.log('on change duration: ', sliderPosition);
     audio.currentTime = sliderPosition;
-}
-
-
-const getBibleAudioSource = ({ bookNumber, chapterNumber }) => {
-    // return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`;
-    return `https://www.wordproaudio.net/bibles/app/audio/11/${bookNumber}/${chapterNumber}.mp3`
 }
 
 
@@ -37,7 +50,7 @@ const getBibleAudioTitle = ({ name, chapterNumber }) => {
 
 
 const resetSlider = () => {
-    // audioSlider.value = 0;
+    audioSlider.value = 0;
     audioSlider.val(0);
 }
 
@@ -78,8 +91,14 @@ const play = () => {
 
 
 const fetchAndPlay = (currentStatus) => {
-    const src = getBibleAudioSource(currentStatus);
-    const title = getBibleAudioTitle(currentStatus);
+    if (currentStatus === null) {
+        return;
+    }
+
+    const { audioType, source, name } = currentStatus;
+
+    const src = (audioType === AUDIO_TYPE.BIBLE) ? getBibleAudioSource(currentStatus) : source;
+    const title = (audioType === AUDIO_TYPE.BIBLE) ? getBibleAudioTitle(currentStatus) : name;
 
     if (isPlayed) {
         pause();
@@ -89,6 +108,9 @@ const fetchAndPlay = (currentStatus) => {
     }
     currentAudioTitleNode.html(title);
     console.log('source: ', src);
+    console.log('title: ', title);
+    
+
     audio.src = src;
     audio.load();
 

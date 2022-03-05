@@ -1,10 +1,13 @@
 :root{
+    --color-white: white;
     --color-blue: #9ADCFF;
     --color-yellow: #FFF89A;
     --color-light-pink: #FFB2A6;
     --color-deep-pink: #FF8AAE;
     --color-black: #1A1A40;
+    --color--gray: rgb(221, 221, 221);
 
+    --font-size-2xl: 32px;
     --font-size-xl: 28px;
     --font-size-lg: 18px;
     --font-size-md: 16px;
@@ -16,7 +19,7 @@
 }
 
 body{
-    background: var(--color-yellow);
+    background: var(--color-white);
     margin: 0;
     color: var(--color-black);
 }
@@ -39,19 +42,21 @@ button:hover{
     cursor: pointer;
 }
 
+.no-display{
+    display: none;
+}
+
 .hidden{
     visibility: hidden;
 }
 
-.no-display{
-    display: none;
-}
 
 /* header */
 header{
     font-size: var(--font-size-lg);
     position: sticky;
     min-height: calc(var(--vh, 1vh) * 10);
+    max-height: calc(var(--vh, 1vh) * 10);
     box-shadow: 0px 2px 5px gray;
     z-index: 200;
     padding: 0;
@@ -72,6 +77,18 @@ header .container{
 
 header .sub-container{
     display: flex;
+    /* border: 1px solid red; */
+    align-items: center;
+}
+
+header #font-control{
+    display: none;
+}
+
+header .container-title{
+    font-size: var(--font-size-xl);
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 header #back-button{
@@ -80,18 +97,23 @@ header #back-button{
     margin-right: 15px;
 }
 
-#bc-button{
-    font-size: var(--font-size-xl);
-    background: var(--color-blue);
-    margin-right: 0.2rem;
+header .sub-container button{
+    font-size: var(--font-size-2xl);
 }
 
-#ad-button{
-    font-size: var(--font-size-xl);
+header #bc-button{
+    background: var(--color-blue);
+}
+
+header #ad-button{
     background: var(--color-deep-pink);
 }
 
-#bc-button.no-background, #ad-button.no-background{
+header #etc-button{
+    background: var(--color--gray);
+}
+
+header #bc-button.no-background, #ad-button.no-background{
     background: none;
 }
 
@@ -131,7 +153,20 @@ header #back-button{
     background: var(--color-deep-pink);
 }
 
+.container-bible-books .etc{
+    background: var(--color--gray);
+}
+
 .container-bible-books .bible-book-button{
+    box-shadow: 0px 2px 3px gray;
+    width: 25vw;
+    height: 25vw;
+    margin: 0.5rem;
+
+    font-size: var(--font-size-xl);
+}
+
+.container-bible-books .audio-book-button{
     box-shadow: 0px 2px 3px gray;
     width: 25vw;
     height: 25vw;
@@ -143,7 +178,7 @@ header #back-button{
 /* bible chapters */
 .container-bible-chapter{
     position: absolute;
-    background: var(--color-yellow);
+    background: var(--color-white);
     left: 50%;
     transform: translateX(-50%);
     z-index: 20;
@@ -168,7 +203,7 @@ header #back-button{
     width: 80%;
     box-shadow: 0px 1px 3px gray;
     min-height: calc(var(--vh, 1vh) * 10);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
 }
 .container-bible-chapter #decoration{
     color: var(--color-black);
@@ -180,13 +215,13 @@ header #back-button{
 /* container bible content */
 .container-bible-content{
     position: absolute;
-    background: var(--color-yellow);
+    background: var(--color-white);
     left: 50%;
     transform: translateX(-50%);
     z-index: 30;
 
     padding-bottom: calc(var(--vh, 1vh) * 10);
-    width: 90vw;
+    width: 95vw;
     max-width: 1200px;
     height: 100%;
     overflow-y: scroll;
@@ -204,10 +239,25 @@ header #back-button{
     padding-bottom: 1em;
 }
 
+.container-bible-content .accent{
+    background: var(--color--gray);
+}
+
+.container-bible-content .verse-container{
+    border: 1px solid rgb(231, 231, 231);
+    width: 100%;
+    padding: 0.5rem;
+    padding-left: 1em;
+    font-size: var(--font-size-lg);
+}
+
+.container-bible-content .verse{
+    line-height: 1.7em;
+}
 
 /* section-audio-player */
 .section-audio-player{
-    background: var(--color-yellow);
+    background: var(--color-white);
     height: calc(var(--vh, 1vh) * 10);
     width: 100%;
     z-index: 200;
@@ -307,8 +357,12 @@ header #back-button{
         font-size: 1rem;
     }
 
-    header #ad-button, #bc-button{
-        font-size: 16px;
+    header .sub-container button{
+        font-size: 18px;
+    }
+
+    header .sub-container .container-title{
+        font-size: 18px;
     }
 
     .container-bible-books .bible-book-button{
@@ -320,5 +374,9 @@ header #back-button{
 
     .container-bible-chapter .bible-chapter-button{
         font-size: 16px;
+    }
+
+    .container-bible-content .verse-container{
+        font-size: 14px;
     }
 }
