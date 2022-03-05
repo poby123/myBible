@@ -16,4 +16,4 @@
 
 
 ## Reference
-성경 파일 `k_bible_1950_dos_kr.js`은 `https://github.com/ehrudxo/kbible1950`의 소스를 사용했습니다.
+성경 파일 `k_bible_1950_dos_kr.js`은 https://github.com/ehrudxo/kbible1950의 소스를 사용했습니다.
