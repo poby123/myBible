@@ -99,6 +99,7 @@ header #back-button{
 
 header .sub-container button{
     font-size: var(--font-size-2xl);
+    padding: 0.5rem;
 }
 
 header #bc-button{
@@ -113,7 +114,8 @@ header #etc-button{
     background: var(--color--gray);
 }
 
-header #bc-button.no-background, #ad-button.no-background{
+header #bc-button.no-background, #ad-button.no-background,
+#etc-button.no-background{
     background: none;
 }
 
@@ -365,7 +367,8 @@ header #bc-button.no-background, #ad-button.no-background{
         font-size: 18px;
     }
 
-    .container-bible-books .bible-book-button{
+    .container-bible-books .bible-book-button, 
+    .container-bible-books .audio-book-button{
         font-size: 16px;
         width: 23vw;
         height: 23vw;

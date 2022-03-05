@@ -5,7 +5,7 @@ const currentChapter = $('#current-chapter');
 const backButton = $('#back-button');
 const bcButton = $('#bc-button'); // 구약 버튼
 const adButton = $('#ad-button'); // 신약 버튼
-const etcButton = $('etc-button'); // 기타 버튼
+const etcButton = $('#etc-button'); // 기타 버튼
 
 const audio = document.createElement('audio');
 const audioSlider = $('#duration-slider');
