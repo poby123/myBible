@@ -2,8 +2,8 @@
 let timer = 0;
 
 const getBibleAudioSource = ({ bookNumber, chapterNumber }) => {
-    // return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`; // 원래 소스
-    return `https://www.wordproaudio.net/bibles/app/audio/11/${bookNumber}/${chapterNumber}.mp3` // 임시소스
+    return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`; // 원래 소스
+    // return `https://www.wordproaudio.net/bibles/app/audio/11/${bookNumber}/${chapterNumber}.mp3` // 임시소스
 }
 
 const onClickAudioTrack = (index) => {
