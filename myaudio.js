@@ -96,7 +96,7 @@ const fetchAndPlay = (currentStatus) => {
     const title = (audioType === AUDIO_TYPE.BIBLE) ? getBibleAudioTitle(currentStatus) : name;
 
     // proxy server due to ssl error
-    if(location.protocol != 'https'){
+    if(location.protocol != 'http'){
         src = `${proxy}${src}`;
     }
 
