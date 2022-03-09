@@ -25,6 +25,12 @@ const AUDIO_TYPE = {
   NORMAL: 'AUDIO_TYPE/NORMAL_AUDIO'
 }
 
+/* render audios */
+audios.forEach(({ title }, i) => {
+  const node = $(`<button class="audio-book-button etc" id="${i}">${title}</button>`)
+  bookSelectSection.append(node);
+});
+
 
 /* states */
 let isPlayed = false;
@@ -59,24 +65,24 @@ const onClickBookButton = (book => {
   backButton.toggleClass('hidden'); // show
 
   stack.push(windowType.BIBLE_CHAPTER);
-  window.history.pushState('', '', '?book=' + book);
+  // window.history.pushState('', '', '?book=' + book);
 
   renderChapters(book);
 })
 
 
-window.onpopstate = (e) => {
-  onBack();
-}
+// window.onpopstate = (e) => {
+//   onBack();
+// }
 
 
 const onBack = () => {
   if (stack.length == 1) {
     return;
   }
-
+  
   const it = stack.pop();
-
+  
   if (it == windowType.BIBLE_CHAPTER) {
     backButton.toggleClass('hidden'); // hide back button
     chapterSelectSection.toggleClass('hidden'); // hide chapter section
@@ -91,14 +97,15 @@ const onBack = () => {
 
 
 $('.audio-book-button').click(e => {
-  const source = e.currentTarget.id;
-  window.history.pushState('', '', '?audio=' + source);
+  const source = decodeURI(e.currentTarget.id);
+  // window.history.pushState('', '', '?audio=' + source);
   onClickAudioTrack(source);
 });
 
 
 backButton.click(() => {
-  window.history.back();
+  // window.history.back();
+  onBack();
 });
 
 
@@ -212,7 +219,7 @@ const renderChapters = name => {
 
 const onClickChapterButton = (name, chapter) => {
   stack.push(windowType.BIBLE_CONTENTS);
-  window.history.pushState('', '', `${location.href}&chapter=${chapter}`);
+  // window.history.pushState('', '', `${location.href}&chapter=${chapter}`);
 
   contentSection.toggleClass('hidden'); // show
 

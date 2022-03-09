@@ -7,12 +7,6 @@ window.addEventListener('beforeunload', () => {
   audio.remove();
 })
 
-/* render audios */
-audios.forEach(({ title }, i) => {
-  const node = $(`<button class="audio-book-button etc" id="${i}">${title}</button>`)
-  bookSelectSection.append(node);
-});
-
 
 /* sync url params */
 const bookParamValue = getParam('book');
