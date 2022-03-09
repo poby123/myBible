@@ -25,12 +25,6 @@ const AUDIO_TYPE = {
   NORMAL: 'AUDIO_TYPE/NORMAL_AUDIO'
 }
 
-/* render audios */
-audios.forEach(({ title }, i) => {
-  const node = $(`<button class="audio-book-button etc" id="${i}">${title}</button>`)
-  bookSelectSection.append(node);
-});
-
 
 /* states */
 let isPlayed = false;
@@ -65,9 +59,9 @@ const onClickBookButton = (book => {
   backButton.toggleClass('hidden'); // show
 
   stack.push(windowType.BIBLE_CHAPTER);
-  renderChapters(book);
-
   window.history.pushState('', '', '?book=' + book);
+
+  renderChapters(book);
 })
 
 
@@ -108,7 +102,6 @@ backButton.click(() => {
 });
 
 
-
 bcButton.click(() => {
   $('.bc').toggleClass('no-display');
   bcButton.toggleClass('no-background');
@@ -120,10 +113,12 @@ adButton.click(() => {
   adButton.toggleClass('no-background');
 })
 
+
 etcButton.click(() => {
   $('.etc').toggleClass('no-display');
   etcButton.toggleClass('no-background');
 })
+
 
 $('#font-minus').click(() => {
   verseFontSize -= 2;
@@ -148,6 +143,7 @@ playButton.on('click', () => {
     play();
   }
 });
+
 
 
 $('#backward').on('click', () => {
@@ -188,7 +184,7 @@ $('#forward').on('click', () => {
 /*************************** */
 
 const renderChapters = name => {
-  console.log(name, ' in render chapters');
+  // console.log(name, ' in render chapters');
 
   const { no, numberOfChapters } = bibleInfos[name];
 
@@ -212,15 +208,18 @@ const renderChapters = name => {
   chapterSelectSection.scrollTop(0);
 };
 
+
+
 const onClickChapterButton = (name, chapter) => {
   stack.push(windowType.BIBLE_CONTENTS);
+  window.history.pushState('', '', `${location.href}&chapter=${chapter}`);
 
   contentSection.toggleClass('hidden'); // show
 
-  window.history.pushState('', '', `${location.href}&chapter=${chapter}`);
   renderContents(name, chapter); // for render contents
   onClickBibleTrack(name, chapter); // for audio
 }
+
 
 
 const renderContents = (name, chapter) => {
@@ -311,8 +310,8 @@ const getNextStatus = (currentStatus) => {
 
   // in case bible audio
   const numberOfChater = bibleInfos[name].numberOfChapters;
-
   const nextChapter = Number(chapterNumber) + 1;
+
   if (nextChapter <= numberOfChater) {
     newStatus.chapterNumber = nextChapter;
   }

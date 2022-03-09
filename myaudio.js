@@ -2,8 +2,7 @@
 let timer = 0;
 
 const getBibleAudioSource = ({ bookNumber, chapterNumber }) => {
-    return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`; // 원래 소스
-    // return `https://www.wordproaudio.net/bibles/app/audio/11/${bookNumber}/${chapterNumber}.mp3` // 임시소스
+    return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`;
 }
 
 const onClickAudioTrack = (index) => {
@@ -91,14 +90,15 @@ const play = () => {
 
 
 const fetchAndPlay = (currentStatus) => {
-    if (currentStatus === null) {
-        return;
-    }
-
     const { audioType, source, name } = currentStatus;
 
-    const src = (audioType === AUDIO_TYPE.BIBLE) ? getBibleAudioSource(currentStatus) : source;
+    let src = (audioType === AUDIO_TYPE.BIBLE) ? getBibleAudioSource(currentStatus) : source;
     const title = (audioType === AUDIO_TYPE.BIBLE) ? getBibleAudioTitle(currentStatus) : name;
+
+    // proxy server due to ssl error
+    if(location.protocol != 'https'){
+        src = `${proxy}${src}`;
+    }
 
     if (isPlayed) {
         pause();
@@ -110,7 +110,6 @@ const fetchAndPlay = (currentStatus) => {
     console.log('source: ', src);
     console.log('title: ', title);
     
-
     audio.src = src;
     audio.load();
 
