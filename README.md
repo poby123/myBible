@@ -6,21 +6,12 @@
 ### 일반 오디오
 [custom.js](custom.js)에서 `title`과 `source`를 적당히 수정해주시면 됩니다.
 
-### 성경 오디오
-[myaudio.js](myaudio.js)의 
-```js
-4 const getBibleAudioSource = ({ bookNumber, chapterNumber }) => {
-5 // return `${host}/${bookNumber}/${bookNumber}_${chapterNumber}.mp3`; // 원래 소스
-6 return `https://www.wordproaudio.net/bibles/app/audio/11/${bookNumber}/${chapterNumber}.mp3` // 임시소스
-}
-```
-위 코드에서 5번째 줄 맨 앞의 // 을 제거하고, 6번째 줄 맨 앞에 //을 넣어주시면 됩니다.
 
 ## Todo
-- 오디오 소스 변경
 - 성능 테스트 및 최적화 방안
 
 ## Done
+- 오디오 소스 변경
 - 구약, 신약 이외의 기타버튼 1번, 2번, 3번
 - 구약, 신약 버튼과 성경 내용의 글자크기는 '온라인 성경' 크기로
 - 글자크기 버튼
