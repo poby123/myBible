@@ -49,22 +49,34 @@ let stack = Array(windowType.BIBLE_BOOK); // windows stack
 
 
 /* button event listeners */
-$('.bible-book-button').click(e => {
+$('#main-title').click(() => {
+  location.replace(window.location.href.split('?')[0]);
+})
 
+
+
+$('.bible-book-button').click(e => {
+  onClickBookButton(e.currentTarget.innerText);
+});
+
+
+const onClickBookButton = (book => {
   chapterSelectSection.toggleClass('hidden'); // show
   backButton.toggleClass('hidden'); // show
 
   stack.push(windowType.BIBLE_CHAPTER);
-  renderChapters(e.currentTarget.innerText);
-});
+  renderChapters(book);
+
+  window.history.pushState('', '', '?book=' + book);
+})
 
 
-$('.audio-book-button').click(e => {
-  onClickAudioTrack(e.currentTarget.id);
-});
+window.onpopstate = (e) => {
+  onBack();
+}
 
 
-backButton.click(() => {
+const onBack = () => {
   if (stack.length == 1) {
     return;
   }
@@ -80,7 +92,21 @@ backButton.click(() => {
     $('#font-control').css('display', 'none');  // hide font control
     $('#category-control').css('display', 'flex'); // show categories
   }
-})
+}
+
+
+
+$('.audio-book-button').click(e => {
+  const source = e.currentTarget.id;
+  window.history.pushState('', '', '?audio=' + source);
+  onClickAudioTrack(source);
+});
+
+
+backButton.click(() => {
+  window.history.back();
+});
+
 
 
 bcButton.click(() => {
@@ -162,6 +188,8 @@ $('#forward').on('click', () => {
 /*************************** */
 
 const renderChapters = name => {
+  console.log(name, ' in render chapters');
+
   const { no, numberOfChapters } = bibleInfos[name];
 
   chapterSelectSection.html(`
@@ -177,17 +205,22 @@ const renderChapters = name => {
 
   // register event listener to chapter buttons
   $('.bible-chapter-button').click(e => {
-    stack.push(windowType.BIBLE_CONTENTS);
-
-    contentSection.toggleClass('hidden'); // show
     const chapter = e.currentTarget.id.split('_')[1];
-
-    renderContents(name, chapter); // for render contents
-    onClickBibleTrack(name, chapter); // for audio
+    onClickChapterButton(name, chapter);
   });
 
   chapterSelectSection.scrollTop(0);
 };
+
+const onClickChapterButton = (name, chapter) => {
+  stack.push(windowType.BIBLE_CONTENTS);
+
+  contentSection.toggleClass('hidden'); // show
+
+  window.history.pushState('', '', `${location.href}&chapter=${chapter}`);
+  renderContents(name, chapter); // for render contents
+  onClickBibleTrack(name, chapter); // for audio
+}
 
 
 const renderContents = (name, chapter) => {
@@ -234,18 +267,18 @@ const updateWindowInAudioControl = () => {
 
 
 const getPreviousStatus = (currentStatus) => {
-  const { bookNumber, chapterNumber, audioType} = currentStatus;
+  const { bookNumber, chapterNumber, audioType } = currentStatus;
   let newStatus = currentStatus;
 
   // in case normal audio
-  if(audioType === AUDIO_TYPE.NORMAL){
+  if (audioType === AUDIO_TYPE.NORMAL) {
     let index = currentStatus.index;
-    
-    if(--index < 0){
+
+    if (--index < 0) {
       index = audios.length - 1;
     }
 
-    newStatus = {...currentStatus, index: index};
+    newStatus = { ...currentStatus, index: index };
     return newStatus;
   }
 
@@ -266,13 +299,13 @@ const getPreviousStatus = (currentStatus) => {
 
 
 const getNextStatus = (currentStatus) => {
-  const { name, bookNumber, chapterNumber, audioType} = currentStatus;
+  const { name, bookNumber, chapterNumber, audioType } = currentStatus;
   let newStatus = currentStatus;
-  
+
   // in case normal audio
-  if(audioType === AUDIO_TYPE.NORMAL){
+  if (audioType === AUDIO_TYPE.NORMAL) {
     let index = currentStatus.index;
-    newStatus = {...currentStatus, index: (index + 1) % audios.length};
+    newStatus = { ...currentStatus, index: (index + 1) % audios.length };
     return newStatus;
   }
 
@@ -294,18 +327,22 @@ const getNextStatus = (currentStatus) => {
 }
 
 
+const getParam = (sname) => {
+  let params = decodeURI(window.location.search).substr(location.search.indexOf("?") + 1);
+  let sval = "";
+  params = params.split("&");
+
+  for (let i = 0; i < params.length; i++) {
+    let temp = params[i].split("=");
+    if ([temp[0]] == sname) { sval = temp[1]; }
+  }
+
+  return sval;
+}
+
+
 const parseSeconds = (sec) => {
   const date = new Date(0);
   date.setSeconds(sec);
   return date.toISOString().substr(14, 5);
 }
-
-
-/* on window loaded */
-setScreenSize();
-window.addEventListener('resize', setScreenSize);
-window.addEventListener('beforeunload', () => {
-  audio.pause();
-  audio.currentTime = 0;
-  audio.remove();
-})

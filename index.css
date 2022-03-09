@@ -81,6 +81,11 @@ header .sub-container{
     align-items: center;
 }
 
+header #main-title:hover{
+    cursor: pointer;
+}
+
+
 header #font-control{
     display: none;
 }
