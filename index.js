@@ -3,9 +3,6 @@ const chapterSelectSection = $('.container-bible-chapter'); // n장 선택
 const contentSection = $('.container-bible-content'); // 성경 구절이 나오는 부분
 const currentChapter = $('#current-chapter');
 const backButton = $('#back-button');
-const bcButton = $('#bc-button'); // 구약 버튼
-const adButton = $('#ad-button'); // 신약 버튼
-const etcButton = $('#etc-button'); // 기타 버튼
 
 const audio = document.createElement('audio');
 const audioSlider = $('#duration-slider');
@@ -34,6 +31,7 @@ audios.forEach(({ title }, i) => {
 
 /* states */
 let isPlayed = false;
+let activatedCategory = null;
 let currentStatus = {
   name: '창세기',
   bookNumber: 1,
@@ -80,9 +78,9 @@ const onBack = () => {
   if (stack.length == 1) {
     return;
   }
-  
+
   const it = stack.pop();
-  
+
   if (it == windowType.BIBLE_CHAPTER) {
     backButton.toggleClass('hidden'); // hide back button
     chapterSelectSection.toggleClass('hidden'); // hide chapter section
@@ -109,22 +107,48 @@ backButton.click(() => {
 });
 
 
-bcButton.click(() => {
-  $('.bc').toggleClass('no-display');
-  bcButton.toggleClass('no-background');
+
+$('.category-button').click(e => {
+  const selected = e.currentTarget.id; // 눌린 버튼
+
+  // 이미 선택된 카테고리가 있는 경우
+  if (activatedCategory) {
+
+    // 선택된 카테고리가 다시 눌린 경우
+    if (activatedCategory === selected) {
+      showCategory(selected);
+      activatedCategory = null;
+    }
+
+    // 다른 카테고리가 눌린 경우
+    else {
+      showCategory(activatedCategory);
+      showCategory(selected);
+      activatedCategory = selected;
+    }
+  }
+
+  // 선택된 카테고리가 없는 경우.
+  else {
+   showCategory(selected);
+   activatedCategory = selected;
+  }
+
 })
 
 
-adButton.click(() => {
-  $('.ad').toggleClass('no-display');
-  adButton.toggleClass('no-background');
-})
+const showCategory = (selected) => {
+  const categoryButtons = { 'bc-button': 'bc', 'ad-button': 'ad', 'etc-button': 'etc' };
 
+  $(`#${selected}`).toggleClass('no-background');
 
-etcButton.click(() => {
-  $('.etc').toggleClass('no-display');
-  etcButton.toggleClass('no-background');
-})
+  for (const i of Object.entries(categoryButtons)) {
+    if (i[0] == selected) {
+      continue;
+    }
+    $(`.${i[1]}`).toggleClass('no-display');
+  }
+}
 
 
 $('#font-minus').click(() => {
@@ -141,6 +165,7 @@ $('#font-plus').click(() => {
 })
 
 
+
 /* audio buttons event listener */
 playButton.on('click', () => {
   if (isPlayed) {
@@ -150,7 +175,6 @@ playButton.on('click', () => {
     play();
   }
 });
-
 
 
 $('#backward').on('click', () => {
