@@ -52,27 +52,28 @@ $('#main-title').click(() => {
 })
 
 
-
 $('.bible-book-button').click(e => {
   onClickBookButton(e.currentTarget.innerText);
 });
-
 
 const onClickBookButton = (book => {
   chapterSelectSection.toggleClass('hidden'); // show
   backButton.toggleClass('hidden'); // show
 
   stack.push(windowType.BIBLE_CHAPTER);
-  // window.history.pushState('', '', '?book=' + book);
-
   renderChapters(book);
 })
 
+$('.audio-book-button').click(e => {
+  const source = decodeURI(e.currentTarget.id);
+  onClickAudioTrack(source);
+});
 
-// window.onpopstate = (e) => {
-//   onBack();
-// }
 
+
+backButton.click(() => {
+  onBack();
+});
 
 const onBack = () => {
   if (stack.length == 1) {
@@ -94,22 +95,8 @@ const onBack = () => {
 
 
 
-$('.audio-book-button').click(e => {
-  const source = decodeURI(e.currentTarget.id);
-  // window.history.pushState('', '', '?audio=' + source);
-  onClickAudioTrack(source);
-});
-
-
-backButton.click(() => {
-  // window.history.back();
-  onBack();
-});
-
-
-
 $('.category-button').click(e => {
-  const selected = e.currentTarget.id; // 눌린 버튼
+  const selected = e.currentTarget.id;
 
   // 이미 선택된 카테고리가 있는 경우
   if (activatedCategory) {
@@ -133,7 +120,6 @@ $('.category-button').click(e => {
    showCategory(selected);
    activatedCategory = selected;
   }
-
 })
 
 
@@ -215,8 +201,6 @@ $('#forward').on('click', () => {
 /*************************** */
 
 const renderChapters = name => {
-  // console.log(name, ' in render chapters');
-
   const { no, numberOfChapters } = bibleInfos[name];
 
   chapterSelectSection.html(`
@@ -230,6 +214,7 @@ const renderChapters = name => {
     chapterSelectSection.append(node);
   });
 
+
   // register event listener to chapter buttons
   $('.bible-chapter-button').click(e => {
     const chapter = e.currentTarget.id.split('_')[1];
@@ -239,12 +224,8 @@ const renderChapters = name => {
   chapterSelectSection.scrollTop(0);
 };
 
-
-
 const onClickChapterButton = (name, chapter) => {
   stack.push(windowType.BIBLE_CONTENTS);
-  // window.history.pushState('', '', `${location.href}&chapter=${chapter}`);
-
   contentSection.toggleClass('hidden'); // show
 
   renderContents(name, chapter); // for render contents
@@ -272,6 +253,7 @@ const renderContents = (name, chapter) => {
 
   contentSection.scrollTop(0);
 }
+
 
 
 

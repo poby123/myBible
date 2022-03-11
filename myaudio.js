@@ -95,11 +95,6 @@ const fetchAndPlay = (currentStatus) => {
     let src = (audioType === AUDIO_TYPE.BIBLE) ? getBibleAudioSource(currentStatus) : source;
     const title = (audioType === AUDIO_TYPE.BIBLE) ? getBibleAudioTitle(currentStatus) : name;
 
-    // proxy server due to ssl error
-    if(location.protocol != 'http'){
-        src = `${proxy}${src}`;
-    }
-
     if (isPlayed) {
         pause();
         audio.currentTime = 0;
@@ -107,9 +102,6 @@ const fetchAndPlay = (currentStatus) => {
         resetSlider();
     }
     currentAudioTitleNode.html(title);
-    console.log('source: ', src);
-    console.log('title: ', title);
-    
     audio.src = src;
     audio.load();
 
