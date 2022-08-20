@@ -1,5 +1,5 @@
 const proxy = 'https://wj-http-proxy.herokuapp.com/?url=';
-const host = 'http://210.217.24.54:88/mp3_bible/korean';
+const host = 'https://du17ekdzj6e4a.cloudfront.net/bible';
 const bibleInfos = {
   창세기: { no: 1, numberOfChapters: 50, keyword: "창"},
   출애굽기: { no: 2, numberOfChapters: 40, keyword: "출"},
